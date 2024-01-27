@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 
 <p align="left">
 
-<img src=".//man//figures//viewscape_hex.png" height="200">
+<img src="dsmSearch_hex-02.png" height="200">
 
 </p>
 

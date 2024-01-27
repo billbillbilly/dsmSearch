@@ -6,7 +6,6 @@ Author@R: c(person("Xiaohao", "Yang", role = c("aut", "cre"), email = "xiaohaoy@
            person("Nathan", "Fox", role = c("aut")),
            person("Derek", "Van Berkel", role = c("aut")),
            person("Mark", "Lindquist", role = c("aut")))
-Author: Xiaohao Yang
 Maintainer: Xiaohao Yang <xiaohaoy@umich.edu>
 Description: A collection of functions to search and donwload DSM/DEM and LiDAR data.
 Depends: R (>= 4.1)

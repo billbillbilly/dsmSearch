@@ -8,7 +8,7 @@
 
 <p align="left">
 
-<img src="dsmSearch_hex-02.png" height="200">
+<img src="dsmsearch_hex-02.png" height="200">
 
 </p>
 

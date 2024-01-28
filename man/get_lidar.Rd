@@ -4,7 +4,7 @@
 \alias{get_lidar}
 \title{get_lidar}
 \usage{
-get_lidar(x, y, r, epsg, max_return = 500, folder, plot = FALSE)
+get_lidar(x, y, r, epsg, bbox, max_return = 500, folder, plot = FALSE)
 }
 \arguments{
 \item{x}{numeric, indicating Longtitude degree of the center point.}
@@ -17,6 +17,8 @@ If r > 1000m, it will be reset to 1000m.}
 
 \item{epsg}{numeric, the EPSG code specifying the coordinate reference system.}
 
+\item{bbox}{vector, a bounding box defining the geographical area for downloading data.}
+
 \item{max_return}{numeric, indicating the maximum of returns.}
 
 \item{folder}{string, indicating a path for downloading the LiDAR data}
@@ -25,7 +27,7 @@ If r > 1000m, it will be reset to 1000m.}
 the processed LiDAR data.}
 }
 \value{
-The function returns the processed LiDAR data as a lidR LAS object.
+lidR LAS object.
 }
 \description{
 Search for and download LiDAR data based on coordinates
@@ -36,7 +38,10 @@ To get more details of data on a larger scale, please use viewscape::lidar_searc
 }
 \examples{
 \dontrun{
-#las <- get_lidar(-83.741289, 42.270146, 1000, 2253, 'path/to/folder')
+#las <- get_lidar(x = -83.741289, y = 42.270146, r = 1000,
+#                 epsg = 2253, path = 'path/to/folder')
+#las <- get_lidar(bbox = c(-83.742282,42.273389,-83.733442,42.278724),
+#                 epsg = 2253, path = 'path/to/folder')
 #terra::plot(lidR::rasterize_canopy(las, 10, dsmtin()))
 }
 

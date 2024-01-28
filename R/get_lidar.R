@@ -11,12 +11,13 @@
 #' The maximum distance is 1000m (3281ft).
 #' If r > 1000m, it will be reset to 1000m.
 #' @param epsg numeric, the EPSG code specifying the coordinate reference system.
+#' @param bbox vector, a bounding box defining the geographical area for downloading data.
 #' @param max_return numeric, indicating the maximum of returns.
 #' @param folder string, indicating a path for downloading the LiDAR data
 #' @param plot logical (default is FALSE), enable or disable the plotting of
 #' the processed LiDAR data.
 #'
-#' @return The function returns the processed LiDAR data as a lidR LAS object.
+#' @return lidR LAS object.
 #'
 #' @references Jean-Romain Roussel and David Auty (2022).
 #' Airborne LiDAR Data Manipulation and Visualization for
@@ -24,7 +25,10 @@
 #'
 #' @examples
 #' \dontrun{
-#' #las <- get_lidar(-83.741289, 42.270146, 1000, 2253, 'path/to/folder')
+#' #las <- get_lidar(x = -83.741289, y = 42.270146, r = 1000,
+#' #                 epsg = 2253, path = 'path/to/folder')
+#' #las <- get_lidar(bbox = c(-83.742282,42.273389,-83.733442,42.278724),
+#' #                 epsg = 2253, path = 'path/to/folder')
 #' #terra::plot(lidR::rasterize_canopy(las, 10, dsmtin()))
 #' }
 #'
@@ -32,6 +36,7 @@
 #' @importFrom lidR readLAScatalog
 #' @importFrom lidR clip_rectangle
 #' @importFrom lidR writeLAS
+#' @importFrom lidR plot
 #' @importFrom sp SpatialPoints
 #' @importFrom sp CRS
 #' @importFrom sp spTransform
@@ -42,30 +47,53 @@ get_lidar <- function(x,
                       y,
                       r,
                       epsg,
+                      bbox,
                       max_return=500,
                       folder,
                       plot = FALSE) {
-  if (missing(x) || missing(y)) {
-    stop("x or y is missing. Please indicate the coordinates of centroid")
-  } else if (missing(r) == TRUE) {
-    stop("r is missing. Please indicate distance for searching the LiDAR data")
-  } else if (missing(epsg)) {
+  if (missing(epsg)) {
     stop("epsg is missing. Please set epsg code")
   }
+  proj <- sp::CRS(paste0("+init=epsg:", epsg))
+  longlat <- sp::CRS("+proj=longlat")
+  # create bbox
+  if (missing(bbox)) {
+    if (missing(x) || missing(y) || missing(r)) {
+      stop("please specify x, y, and r, or bbox")
+    } else {
+      # check searching distance
+      unit <- sub(".no_defs", "", sub(".*=", "", proj@projargs))
+      if (r > 1000 && unit == "m ") {
+        r <- 1000
+      } else if (r > 3281 && unit == "us-ft " ) {
+        r <- 3281
+      }
+      bbox <- pt2bbox(x, y, r, proj, longlat)
+    }
+  } else {
+    bbox <- convertBbox(bbox, proj, longlat)
+  }
+  # if (missing(x) || missing(y)) {
+  #   stop("x or y is missing. Please indicate the coordinates of centroid")
+  # } else if (missing(r) == TRUE) {
+  #   stop("r is missing. Please indicate distance for searching the LiDAR data")
+  # } else if (missing(epsg)) {
+  #   stop("epsg is missing. Please set epsg code")
+  # }
   if (missing(folder)) {
     message("folder is missng. Please set path for downloading the LiDAR data")
   } else {
-    proj <- sp::CRS(paste0("+init=epsg:", epsg))
-    longlat <- sp::CRS("+proj=longlat")
-    # check searching distance
-    unit <- sub(".no_defs", "", sub(".*=", "", proj@projargs))
-    if (r > 1000 && unit == "m ") {
-      r <- 1000
-    } else if (r > 3281 && unit == "us-ft " ) {
-      r <- 3281
-    }
-    # create bbox
-    bbox <- pt2bbox(x, y, r, proj, longlat)
+    # proj <- sp::CRS(paste0("+init=epsg:", epsg))
+    # longlat <- sp::CRS("+proj=longlat")
+    # # check searching distance
+    # unit <- sub(".no_defs", "", sub(".*=", "", proj@projargs))
+    # if (r > 1000 && unit == "m ") {
+    #   r <- 1000
+    # } else if (r > 3281 && unit == "us-ft " ) {
+    #   r <- 3281
+    # }
+    # # create bbox
+    # bbox <- pt2bbox(x, y, r, proj, longlat)
     # get response using API
     result <- return_response(bbox[[1]], max_return)
     # filter overlapping files
@@ -106,7 +134,7 @@ get_lidar <- function(x,
     # delete other laz data
     unlink(files)
     if (plot) {
-      plot(las)
+      lidR::plot(las)
     }
     return(las)
   }

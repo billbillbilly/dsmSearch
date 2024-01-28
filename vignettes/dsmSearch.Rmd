@@ -40,6 +40,11 @@ las <- dsmSearch::get_lidar(x = -83.741289,
                             epsg = 2253,
                             folder = '/Users/yangxiaohao/Downloads/testfunction',
                             plot = FALSE)
+# download with bbox
+las <- dsmSearch::get_lidar(bbox = c(-83.742282,42.273389,-83.733442,42.278724),
+                            epsg = 2253,
+                            folder = '/Users/yangxiaohao/Downloads/testfunction',
+                            plot = FALSE)
 ```
 
 ```{r eval = FALSE}

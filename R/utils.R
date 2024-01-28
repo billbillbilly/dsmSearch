@@ -34,6 +34,19 @@ pt2bbox <- function(x, y, r, proj, longlat){
 }
 
 #' @noMd
+convertBbox <- function(bbox, proj, longlat) {
+  coor <- data.frame(lon=c(bbox[1],bbox[3]),
+                      lat=c(bbox[2],bbox[4]))
+  pt <- sp::SpatialPoints(coor, proj4string=longlat)
+  pt <- sp::spTransform(pt, proj)
+  xmin <- pt@coords[1,1]
+  ymin <- pt@coords[1,2]
+  xmax <- pt@coords[2,1]
+  ymax <- pt@coords[2,2]
+  return(list(bbox,c(xmin, ymin, xmax, ymax)))
+}
+
+#' @noMd
 # create a request of the TNMAccess API
 return_response <- function(bbox, max_return) {
   api1 <- 'https://tnmaccess.nationalmap.gov/api/v1/products?bbox='

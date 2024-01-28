@@ -49,7 +49,7 @@ Baesd on the TNMAccess API, LiDAR search facilitate the retrieval and
 exploration of LiDAR (Light Detection and Ranging) data (from USGS)
 within a specified bounding box (bbox). This function enables users to
 search for LiDAR data, preview available graphics, and optionally
-download LiDAR data files for further viewscape analysis. Current
+download LiDAR data files for DSM/DTM and further data analysis. Current
 dataset of USGS covers the most area in the US:
 <https://apps.nationalmap.gov/lidar-explorer/#/>
 
@@ -67,9 +67,6 @@ For more information and examples of the functions check out the
 vignette](https://github.com/land-info-lab/dsmSearch/blob/master/vignettes/dsmSearch.Rmd).
 
 ## Issues and bugs
-
-This package may take a long time to run if using spatially large or
-high resolution digital elevation models.
 
 If you discover a bug not associated with connection to the API that is
 not already a [reported

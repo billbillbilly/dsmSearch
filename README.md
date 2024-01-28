@@ -12,13 +12,37 @@
 
 </p>
 
-## Introduction
+## Installation
 
 The dsmSearch R pacakge can currently be installed via github.
 
 ``` r
 library(devtools)
 install_github("land-info-lab/dsmSearch", dependencies=TRUE)
+```
+
+## Usage
+
+Download ALOS Global Digital Surface Model (30 meter) via OpenTopography
+API based on coordinates of a spatial point with a given distance or
+bounding box.
+
+Note: The dataset requires API key for access. Users can request an API
+key via myOpenTopo in the OpenTopography portal. \* See OpenTopography
+[Terms of
+Use](https://opentopography.org/usageterms#:~:text=You%20agree%20to%2C%20and%20will,and%20their%20OpenTopography%20accounts%20closed.&text=We%20retain%20the%20right%20to,who%20abuse%20the%20system%20intentionally.)
+for more information on appropriate use of the API.
+
+``` r
+# download DSM raster using bbox
+data <- dsmSearch::get_dsm_30(bbox = c(-83.783557,42.241833,-83.696525,42.310420),
+                              folder = '/path/to/folder')
+
+data <- dsmSearch::get_dsm_30(x = -83.741289, 
+                              y = 42.270146, 
+                              r = 5000, 
+                              epsg = 2253, 
+                              folder = '/path/to/folder')
 ```
 
 Baesd on the TNMAccess API, LiDAR search facilitate the retrieval and
@@ -36,16 +60,11 @@ search_result <- dsmSearch::lidar_search(bbox = c(-83.742282,42.273389,-83.73344
 #> Find available items: 5
 ```
 
-<img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
 
-From viewshed analysis, the visible area of a viewpoint is presented by
-visible points. There are several viewshed metrics such as can be
-calculated based on the visible points. For further information on these
-metrics and the rest of the functions available in this package please
-refer to the [package
-website](https://billbillbilly.github.io/viewscape/). For more
-information and examples of the functions check out the [package
-vignette](needs%20to%20be%20created).
+For more information and examples of the functions check out the
+[package
+vignette](https://github.com/land-info-lab/dsmSearch/blob/master/vignettes/dsmSearch.Rmd).
 
 ## Issues and bugs
 
@@ -54,6 +73,6 @@ high resolution digital elevation models.
 
 If you discover a bug not associated with connection to the API that is
 not already a [reported
-issue](https://github.com/billbillbilly/viewscape/issues), please [open
-a new issue](https://github.com/billbillbilly/viewscape/issues/new)
+issue](https://github.com/land-info-lab/dsmSearch/issues), please [open
+a new issue](https://github.com/land-info-lab/dsmSearch/issues/new)
 providing a reproducible example.

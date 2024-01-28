@@ -2,6 +2,8 @@
 #' @importFrom graphics par
 #' @importFrom grDevices rgb
 #' @importFrom utils download.file
+#' @importFrom httr2 req_url_query
+#' @importFrom httr2 req_headers
 
 #' @noMd
 # create a buffer based on a given point
@@ -13,6 +15,22 @@ get_buffer <- function(x, y, r) {
   p <- sf::st_as_sf(p)
   subarea <- sf::st_buffer(p, r)
   return(subarea)
+}
+
+#' @noMd
+pt2bbox <- function(x, y, r, proj, longlat){
+  coor <- data.frame(lon=x, lat=y)
+  pt <- sp::SpatialPoints(coor, proj4string=longlat)
+  pt <- sp::spTransform(pt, proj)
+  xmin <- pt@coords[1,1] - r
+  xmax <- pt@coords[1,1] + r
+  ymin <- pt@coords[1,2] - r
+  ymax <- pt@coords[1,2] + r
+  coor_ <- data.frame(lon=c(xmin, xmax), lat=c(ymin, ymax))
+  pt_ <- sp::SpatialPoints(coor_, proj)
+  pt_ <- sp::spTransform(pt_, CRSobj=longlat)
+  return(list(c(pt_@coords[1,1], pt_@coords[1,2], pt_@coords[2,1], pt_@coords[2,2]),
+              c(xmin, ymin, xmax, ymax)))
 }
 
 #' @noMd
@@ -76,12 +94,21 @@ find_year <- function(url) {
 }
 
 #' @noMd
-paral_nix <- function(X, dsm, r, offset, workers){
-  results <- pbmcapply::pbmclapply(X = X,
-                                   FUN=radius_viewshed,
-                                   dsm=dsm,
-                                   r=r,
-                                   offset=offset,
-                                   mc.cores=workers)
-  return(results)
+# Terms of Use: https://opentopography.org/usageterms#:~:text=You%20agree%20to%2C%20and%20will,and%20their%20OpenTopography%20accounts%20closed.&text=We%20retain%20the%20right%20to,who%20abuse%20the%20system%20intentionally.
+# Version: As of May 24th 2021 OpenTopography is supplying V3.2 (Jan 2021) from:
+# ftp://ftp.eorc.jaxa.jp//pub/ALOS/ext1/AW3D30/release_v2012_single_format/
+# Data downloaded prior to May 24th 2021 was in format: May 2016: Global terrestrial region
+# (within approx. 82 deg. of N/S latitudes) of Version 1 released (approx. 22,100 tiles)
+return_response2 <- function(bbox, key) {
+  response <- httr2::request("https://portal.opentopography.org/API/globaldem") %>%
+    httr2::req_url_query(demtype = "AW3D30",
+                  south = bbox[2],
+                  north = bbox[4],
+                  west = bbox[1],
+                  east = bbox[3],
+                  outputFormat = "GTiff",
+                  API_Key = "demoapikeyot2022") %>%
+    httr2::req_headers(accept = "*/*") %>%
+    httr2::req_perform()
+  return(response)
 }

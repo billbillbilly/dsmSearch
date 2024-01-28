@@ -8,9 +8,16 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-## 3. Get LiDAR data
+## 1. Get DSM raster data
 
-### 3.1 Get LiDAR data information via API 
+```{r eval = FALSE}
+data <- dsmSearch::get_dsm_30(bbox = c(-83.783557,42.241833,-83.696525,42.310420),
+                              folder = '/Users/yangxiaohao/Downloads/testfunction')
+```
+
+## 2. Get LiDAR data
+
+### 2.1 Get LiDAR data information via API 
 
 ```{r eval = FALSE}
 # search for lidar data information using bbox
@@ -22,9 +29,9 @@ search_result <- dsmSearch::lidar_search(bbox = c(-83.742282,
 search_result
 ```
 
-### 3.2 Download LiDAR data with a given point and searching distance
+### 2.2 Download LiDAR data with a given point and searching distance
 
-```{r eval = FALSE, include = FALSE}
+```{r eval = FALSE}
 # try coordinates -83.741289,42.270146 (in south Michigan, USA)
 # radius is 1000ft
 las <- dsmSearch::get_lidar(x = -83.741289,
@@ -35,13 +42,13 @@ las <- dsmSearch::get_lidar(x = -83.741289,
                             plot = FALSE)
 ```
 
-```{r eval = FALSE, include = FALSE}
+```{r eval = FALSE}
 # Create DTM
 dtm_ <- lidR::rasterize_terrain(las, res = 5, lidR::tin())
 terra::plot(dtm_)
 ```
 
-```{r eval = FALSE, include = FALSE}
+```{r eval = FALSE}
 # Create DSM
 dsm_ <- lidR::rasterize_canopy(las, res = 5, lidR::dsmtin())
 raster::plot(dsm_)

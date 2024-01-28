@@ -16,10 +16,16 @@ RoxygenNote: 7.2.3
 Language: en_GB
 LazyData: true
 Suggests:
-    imager
+    testthat (>= 3.0.0),
+    imager,
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr,
+                 rmarkdown
 Imports: 
     dplyr,
     sf,
     sp,
+    terra,
     lidR,
     httr2

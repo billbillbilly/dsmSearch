@@ -2,11 +2,11 @@
 #' @description Search for and download LiDAR data based on coordinates
 #' of a spatial point with a given distance. The maximum distance is 800m.
 #' Different dataset could be found and the function automatically downloads
-#' the latest dataset
+#' the latest dataset.
 #' To get more details of data on a larger scale, please use viewscape::lidar_search.
 #'
-#' @param x numeric, indicating Longtitude of the center point.
-#' @param y numeric, indicating latitude of the center point.
+#' @param x numeric, indicating Longtitude degree of the center point.
+#' @param y numeric, indicating latitude degree of the center point.
 #' @param r numeric, indicating search distance for LiDAR data.
 #' The maximum distance is 1000m (3281ft).
 #' If r > 1000m, it will be reset to 1000m.
@@ -65,19 +65,9 @@ get_lidar <- function(x,
       r <- 3281
     }
     # create bbox
-    coor <- data.frame(lon=x, lat=y)
-    pt <- sp::SpatialPoints(coor, proj4string=longlat)
-    pt <- sp::spTransform(pt, proj)
-    xmin <- pt@coords[1,1] - r
-    xmax <- pt@coords[1,1] + r
-    ymin <- pt@coords[1,2] - r
-    ymax <- pt@coords[1,2] + r
-    coor_ <- data.frame(lon=c(xmin, xmax), lat=c(ymin, ymax))
-    pt_ <- sp::SpatialPoints(coor_, proj)
-    pt_ <- sp::spTransform(pt_, CRSobj=longlat)
-    bbox <- c(pt_@coords[1,1], pt_@coords[1,2], pt_@coords[2,1], pt_@coords[2,2])
+    bbox <- pt2bbox(x, y, r, proj, longlat)
     # get response using API
-    result <- return_response(bbox, max_return)
+    result <- return_response(bbox[[1]], max_return)
     # filter overlapping files
     lastYear <- max(result$startYear)
     result <- result[which(result$startYear == lastYear),]
@@ -106,10 +96,10 @@ get_lidar <- function(x,
     # clip and merge
     lasc <- lidR::readLAScatalog(files, progress = FALSE)
     las <- lidR::clip_rectangle(lasc,
-                                xleft = xmin,
-                                xright = xmax,
-                                ybottom = ymin,
-                                ytop = ymax)
+                                xleft = bbox[[2]][1],
+                                xright = bbox[[2]][3],
+                                ybottom = bbox[[2]][2],
+                                ytop = bbox[[2]][4])
     # save
     lidR::writeLAS(las, paste0(folder, "/", Sys.time(), ".laz"))
     rm(lasc)

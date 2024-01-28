@@ -21,6 +21,7 @@
 #' @importFrom httr2 req_timeout
 #' @importFrom httr2 req_perform
 #' @importFrom httr2 resp_body_json
+#' @importFrom utils install.packages
 #'
 #' @examples
 #' \dontrun{

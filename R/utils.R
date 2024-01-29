@@ -120,7 +120,7 @@ return_response2 <- function(bbox, key) {
                   west = bbox[1],
                   east = bbox[3],
                   outputFormat = "GTiff",
-                  API_Key = "demoapikeyot2022") %>%
+                  API_Key = key) %>%
     httr2::req_headers(accept = "*/*") %>%
     httr2::req_perform()
   return(response)

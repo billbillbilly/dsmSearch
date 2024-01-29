@@ -18,7 +18,7 @@ The dsmSearch R pacakge can currently be installed via github.
 
 ``` r
 library(devtools)
-install_github("land-info-lab/dsmSearch", dependencies=TRUE)
+devtools::install_github("land-info-lab/dsmSearch", dependencies=TRUE)
 ```
 
 ## Usage

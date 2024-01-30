@@ -1,6 +1,6 @@
 Package: dsmSearch
 Type: Package
-Title: DSM/DEM data downloader
+Title: dsmSearch: R package for downloading DSM and LiDAR data via APIs
 Version: 1.0.0
 Authors@R: c(person("Xiaohao", "Yang", role = c("aut", "cre"), email = "xiaohaoy@umich.edu"),
            person("Nathan", "Fox", role = c("aut")),

@@ -68,6 +68,30 @@ For more information and examples of the functions check out the
 [package
 vignette](https://github.com/land-info-lab/dsmSearch/blob/master/vignettes/dsmSearch.Rmd).
 
+## Citation
+
+```r
+citation("dsmSearch")
+```
+```
+To cite package ‘dsmSearch’ in publications use:
+
+  Xiaohao Yang, Lindquist, M., Van Berkel, D., & Fox, N. (2024). dsmSearch: R package for
+  downloading DSM and LiDAR data via APIs (v1.0.0). Zenodo.
+  https://doi.org/10.5281/zenodo.10594152
+
+A BibTeX entry for LaTeX users is
+
+  @Manual{,
+    title = {dsmSearch: R package for downloading DSM and LiDAR data via APIs (v1.0.0)},
+    author = {Xiaohao Yang and Mark Lindquist and Derek {Van Berkel} and Nathan Fox},
+    publisher = {Zenodo},
+    year = {2024},
+    note = {(Version 1.0.0)},
+    url = {https://doi.org/10.5281/zenodo.10594152},
+  }
+```
+
 ## Issues and bugs
 
 If you discover a bug not associated with connection to the API that is

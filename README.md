@@ -12,6 +12,8 @@
 
 </p>
 
+The package dsmSearch offers functions for retrieving high-resolution Digital Surface Models (DSM) and Light Detection and Ranging (LiDAR) data, providing a toolkit to collect remote sensing data effectively for research and analysis in fields such as ecology, geography, urban planning, and forestry.
+
 ## Installation
 
 The dsmSearch R pacakge can currently be installed via github.

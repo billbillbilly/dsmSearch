@@ -1,6 +1,6 @@
 bibentry(
   bibtype  = "Manual",
-  title    = "DSM/LiDAR data downloader",
+  title    = "dsmSearch: R package for downloading DSM and LiDAR data via APIs",
   author   = c(person("Xiaohao", "Yang"),
            person("Nathan", "Fox"),
            person("Derek", "Van Berkel"),

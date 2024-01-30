@@ -1,6 +1,6 @@
 
 <!-- badges: start -->
-
+[![DOI](https://zenodo.org/badge/750475119.svg)](https://zenodo.org/doi/10.5281/zenodo.10594151)
 [![R-CMD-check](https://github.com/land-info-lab/dsmSearch/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/land-info-lab/dsmSearch/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
@@ -11,6 +11,8 @@
 <img src="dsmsearch_hex-02.png" height="200">
 
 </p>
+
+The package dsmSearch offers functions for retrieving high-resolution Digital Surface Models (DSM) and Light Detection and Ranging (LiDAR) data, providing a toolkit to collect remote sensing data effectively for research and analysis in fields such as ecology, geography, urban planning, and forestry.
 
 ## Installation
 

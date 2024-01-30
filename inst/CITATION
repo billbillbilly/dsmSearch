@@ -1,0 +1,12 @@
+bibentry(
+  bibtype  = "Manual",
+  title    = "DSM/LiDAR data downloader",
+  author   = c(person("Xiaohao", "Yang"),
+           person("Nathan", "Fox"),
+           person("Derek", "Van Berkel"),
+           person("Mark", "Lindquist")),
+  note     = "R package version 1.0.0",
+  year     = "2024",
+  url      = "https://github.com/land-info-lab/dsmSearch",
+  doi      = "10.5281/zenodo.10594151"
+)

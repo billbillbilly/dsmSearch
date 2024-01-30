@@ -5,17 +5,6 @@
 #' @importFrom httr2 req_url_query
 #' @importFrom httr2 req_headers
 
-#' @noMd
-# create a buffer based on a given point
-get_buffer <- function(x, y, r) {
-  pdf <- data.frame(row.names = 1)
-  pdf[1,"x"] <- x
-  pdf[1,"y"] <- y
-  p <- sp::SpatialPoints(pdf)
-  p <- sf::st_as_sf(p)
-  subarea <- sf::st_buffer(p, r)
-  return(subarea)
-}
 
 #' @noMd
 pt2bbox <- function(x, y, r, proj, longlat){

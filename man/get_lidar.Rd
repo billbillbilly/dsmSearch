@@ -4,7 +4,7 @@
 \alias{get_lidar}
 \title{get_lidar}
 \usage{
-get_lidar(x, y, r, epsg, bbox, max_return = 500, folder, plot = FALSE)
+get_lidar(x, y, r, epsg, bbox, max_return = 500, folder)
 }
 \arguments{
 \item{x}{numeric, indicating Longtitude degree of the center point.}
@@ -21,10 +21,7 @@ If r > 1000m, it will be reset to 1000m.}
 
 \item{max_return}{numeric, indicating the maximum of returns.}
 
-\item{folder}{string, indicating a path for downloading the LiDAR data}
-
-\item{plot}{logical (default is FALSE), enable or disable the plotting of
-the processed LiDAR data.}
+\item{folder}{string (optional), indicating a path for downloading the LiDAR data}
 }
 \value{
 lidR LAS object.
@@ -38,10 +35,8 @@ To get more details of data on a larger scale, please use viewscape::lidar_searc
 }
 \examples{
 \dontrun{
-#las <- get_lidar(x = -83.741289, y = 42.270146, r = 1000,
-#                 epsg = 2253, path = 'path/to/folder')
-#las <- get_lidar(bbox = c(-83.742282,42.273389,-83.733442,42.278724),
-#                 epsg = 2253, path = 'path/to/folder')
+#las <- get_lidar(x = -83.741289, y = 42.270146, r = 1000, epsg = 2253)
+#las <- get_lidar(bbox = c(-83.742282,42.273389,-83.733442,42.278724), epsg = 2253)
 #terra::plot(lidR::rasterize_canopy(las, 10, dsmtin()))
 }
 

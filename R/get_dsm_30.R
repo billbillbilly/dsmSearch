@@ -50,7 +50,9 @@ get_dsm_30 <- function(x, y, r, epsg, bbox,
     temp_file <- tempfile(fileext = ".tif")
     writeBin(httr2::resp_body_raw(response), temp_file)
     options(timeout=original_timeout)
-    return(terra::rast(temp_file))
+    out <- terra::rast(temp_file)
+    unlink(temp_file)
+    return(out)
   }
 }
 

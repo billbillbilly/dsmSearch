@@ -19,7 +19,6 @@ Language: en_GB
 LazyData: true
 Suggests:
     testthat (>= 3.0.0),
-    imager,
     knitr,
     rmarkdown
 VignetteBuilder: knitr,
@@ -30,4 +29,5 @@ Imports:
     sp,
     terra,
     lidR,
-    httr2
+    httr2,
+    imager

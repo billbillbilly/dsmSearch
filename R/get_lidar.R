@@ -74,7 +74,6 @@ get_lidar <- function(x,
   lastYear <- max(result$startYear)
   result <- result[which(result$startYear == lastYear),]
   num <- length(result[,1])
-  cat(paste0("Downloading ", num," file(s)...\n"))
   title <- result$titles
   download <- result$downloadLazURL
   # download data

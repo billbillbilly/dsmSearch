@@ -22,6 +22,7 @@
 #' @importFrom httr2 req_perform
 #' @importFrom httr2 resp_body_json
 #' @importFrom utils install.packages
+#' @importFrom imager load.image
 #'
 #' @examples
 #' \donttest{
@@ -42,9 +43,6 @@ lidar_search <- function(bbox,
   result <- return_response(bbox, max_return)
   num <- length(result[,1])
   if (preview == TRUE) {
-    if (!requireNamespace("imager", quietly = TRUE)) {
-      install.packages("imager")
-    }
     url <- result$previewGraphicURL
     if (num == 1) {
       imager::load.image(url) %>% plot()

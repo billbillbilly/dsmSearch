@@ -1,13 +1,15 @@
 Package: dsmSearch
 Type: Package
-Title: dsmSearch: R package for downloading DSM and LiDAR data via APIs
+Title: DSM and LiDAR downloader
 Version: 1.0.0
-Authors@R: c(person("Xiaohao", "Yang", role = c("aut", "cre"), email = "xiaohaoy@umich.edu"),
+Authors@R: c(person("Xiaohao", "Yang", role = c("aut", "cre", "cph"), email = "xiaohaoy@umich.edu"),
            person("Nathan", "Fox", role = c("aut")),
            person("Derek", "Van Berkel", role = c("aut")),
            person("Mark", "Lindquist", role = c("aut")))
-Maintainer: Xiaohao Yang <xiaohaoy@umich.edu>
-Description: A collection of functions to search and donwload DSM/DEM and LiDAR data.
+Description: A collection of functions to search and donwload 
+    DSM (Digital Surface Model) and LiDAR (Light Detection and Ranging) data via APIs, 
+    including OpenTopography API <https://portal.opentopography.org/apidocs/> and 
+    TNMAccess API <https://tnmaccess.nationalmap.gov/api/v1/docs>.
 Depends: R (>= 4.1)
 License: GPL-3
 Encoding: UTF-8

@@ -15,11 +15,10 @@
 #' @details To request an API key of OpenTopography, online registeration is needed.
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' data <- dsmSearch::get_dsm_30(bbox = c(-83.783557,42.241833,-83.696525,42.310420))
 #' data <- dsmSearch::get_dsm_30(x = -83.741289, y = 42.270146, r = 1000, epsg = 2253)
 #' }
-#'
 #'
 #' @importFrom terra rast
 #' @importFrom httr2 resp_body_raw

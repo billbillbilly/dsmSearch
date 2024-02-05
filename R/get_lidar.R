@@ -1,6 +1,6 @@
 #' get_lidar
 #' @description Search for and download LiDAR data based on coordinates
-#' of a spatial point with a given distance. The maximum distance is 800m.
+#' of a spatial point with a given distance. The maximum distance is 1000m.
 #' Different dataset could be found and the function automatically downloads
 #' the latest dataset.
 #' To get more details of data on a larger scale, please use viewscape::lidar_search.
@@ -22,10 +22,10 @@
 #' Forestry Applications. R package version 4.0.1. https://cran.r-project.org/package=lidR
 #'
 #' @examples
-#' \dontrun{
-#' #las <- get_lidar(x = -83.741289, y = 42.270146, r = 1000, epsg = 2253)
-#' #las <- get_lidar(bbox = c(-83.742282,42.273389,-83.733442,42.278724), epsg = 2253)
-#' #terra::plot(lidR::rasterize_canopy(las, 10, dsmtin()))
+#' \donttest{
+#' las <- dsmSearch::get_lidar(x = -83.741289, y = 42.270146, r = 1000, epsg = 2253)
+#' las <- dsmSearch::get_lidar(bbox = c(-83.742282,42.273389,-83.733442,42.278724), epsg = 2253)
+#' terra::plot(lidR::rasterize_canopy(las, 10, lidR::dsmtin()))
 #' }
 #'
 #' @importFrom dplyr "%>%"

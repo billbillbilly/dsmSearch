@@ -24,14 +24,13 @@
 #' @importFrom utils install.packages
 #'
 #' @examples
-#' \dontrun{
-#' #bbox <- c(-83.742282,42.273389,-83.733442,42.278724)
-#' #search_result <- viewscape::lidar_search(bbox = bbox,
-#' #                                         max_return = 25,
-#' #                                         preview = TRUE)
+#' \donttest{
+#' bbox <- c(-83.742282,42.273389,-83.733442,42.278724)
+#' search_result <- dsmSearch::lidar_search(bbox = bbox,
+#'                                          max_return = 25,
+#'                                          preview = TRUE)
 #'}
 #' @export
-
 
 lidar_search <- function(bbox,
                          max_return=500,

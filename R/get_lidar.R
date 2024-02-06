@@ -99,12 +99,16 @@ get_lidar <- function(x,
   }
   options(timeout=original_timeout)
   # clip and merge
-  lasc <- lidR::readLAScatalog(files, progress = FALSE)
-  las <- lidR::clip_rectangle(lasc,
-                              xleft = bbox[[2]][1],
-                              xright = bbox[[2]][3],
-                              ybottom = bbox[[2]][2],
-                              ytop = bbox[[2]][4])
+  suppressWarnings(
+    lasc <- lidR::readLAScatalog(files, progress = FALSE)
+  )
+  suppressWarnings(
+    las <- lidR::clip_rectangle(lasc,
+                                xleft = bbox[[2]][1],
+                                xright = bbox[[2]][3],
+                                ybottom = bbox[[2]][2],
+                                ytop = bbox[[2]][4])
+  )
   # save
   if (!missing(folder)) {
     lidR::writeLAS(las, paste0(folder, "/", Sys.time(), ".laz"))

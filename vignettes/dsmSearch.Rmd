@@ -11,7 +11,7 @@ vignette: >
 ## 1. Get DSM raster data
 
 ```{r eval = FALSE}
-data <- dsmSearch::get_dsm_30(bbox = c(-83.783557,42.241833,-83.696525,42.310420))
+data <- dsmSearch::get_dsm_30(bbox = c(-83.783557,42.241833,-83.696525,42.310420), key = "Your KEY")
 ```
 
 ## 2. Get LiDAR data

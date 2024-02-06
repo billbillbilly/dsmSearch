@@ -4,7 +4,7 @@
 \alias{get_dsm_30}
 \title{get_dsm_30}
 \usage{
-get_dsm_30(x, y, r, epsg, bbox, key = "demoapikeyot2022")
+get_dsm_30(x, y, r, epsg, bbox, key = "")
 }
 \arguments{
 \item{x}{numeric, indicating Longtitude degree of the center point.}
@@ -31,9 +31,14 @@ a given distance or bounding box. The raster resolution is 30 meter.
 To request an API key of OpenTopography, online registeration is needed.
 }
 \examples{
-\donttest{
-data <- dsmSearch::get_dsm_30(bbox = c(-83.783557,42.241833,-83.696525,42.310420))
-data <- dsmSearch::get_dsm_30(x = -83.741289, y = 42.270146, r = 1000, epsg = 2253)
+\dontrun{
+data <- dsmSearch::get_dsm_30(bbox = c(-83.783557,42.241833,-83.696525,42.310420),
+                              key = "API key")
+data <- dsmSearch::get_dsm_30(x = -83.741289,
+                              y = 42.270146,
+                              r = 1000,
+                              epsg = 2253,
+                              key = "API key")
 }
 
 }

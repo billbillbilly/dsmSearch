@@ -37,12 +37,13 @@ for more information on appropriate use of the API.
 
 ``` r
 # download DSM raster using bbox
-data <- dsmSearch::get_dsm_30(bbox = c(-83.783557,42.241833,-83.696525,42.310420))
+data <- dsmSearch::get_dsm_30(bbox = c(-83.783557,42.241833,-83.696525,42.310420), key = "you key")
 # download DSM raster using buffer
 data <- dsmSearch::get_dsm_30(x = -83.741289, 
                               y = 42.270146, 
                               r = 5000, 
-                              epsg = 2253)
+                              epsg = 2253,
+                              key = "you key")
 ```
 
 Baesd on the TNMAccess API, LiDAR search facilitate the retrieval and

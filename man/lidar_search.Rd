@@ -37,6 +37,6 @@ and working with LiDAR data via the TNMAccess API: https://tnmaccess.nationalmap
 bbox <- c(-83.742282,42.273389,-83.733442,42.278724)
 search_result <- dsmSearch::lidar_search(bbox = bbox,
                                          max_return = 25,
-                                         preview = TRUE)
+                                         preview = FALSE)
 }
 }

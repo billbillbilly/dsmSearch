@@ -1,6 +1,6 @@
 #' get_lidar
 #' @description Search for and download LiDAR data based on coordinates
-#' of a spatial point with a given distance. The maximum distance is 1000m.
+#' of a spatial point with a given distance or a bounding box. The maximum distance is 1000m.
 #' Different dataset could be found and the function automatically downloads
 #' the latest dataset.
 #' To get more details of data on a larger scale, please use viewscape::lidar_search.
@@ -27,6 +27,8 @@
 #' las <- dsmSearch::get_lidar(bbox = c(-83.742282,42.273389,-83.733442,42.278724), epsg = 2253)
 #' terra::plot(lidR::rasterize_canopy(las, 10, lidR::dsmtin()))
 #' }
+#'
+#' @seealso [lidar_search()]
 #'
 #' @importFrom dplyr "%>%"
 #' @importFrom lidR readLAScatalog
@@ -68,6 +70,9 @@ get_lidar <- function(x,
   } else {
     bbox <- convertBbox(bbox, proj, longlat)
   }
+  original_timeout <- getOption('timeout')
+  on.exit(options(timeout = original_timeout), add = TRUE)
+  options(timeout=9999)
   # get response using API
   result <- return_response(bbox[[1]], max_return)
   # filter overlapping files
@@ -77,8 +82,6 @@ get_lidar <- function(x,
   title <- result$titles
   download <- result$downloadLazURL
   # download data
-  original_timeout <- getOption('timeout')
-  options(timeout=9999)
   files <- c()
   if (isTRUE(Sys.info()[1]=="Windows") == FALSE){
     m <- "curl"

@@ -29,7 +29,7 @@
 #' bbox <- c(-83.742282,42.273389,-83.733442,42.278724)
 #' search_result <- dsmSearch::lidar_search(bbox = bbox,
 #'                                          max_return = 25,
-#'                                          preview = TRUE)
+#'                                          preview = FALSE)
 #'}
 #' @export
 
@@ -42,6 +42,13 @@ lidar_search <- function(bbox,
   }
   result <- return_response(bbox, max_return)
   num <- length(result[,1])
+  original_timeout <- getOption('timeout')
+  original_par <- par(no.readonly = TRUE)
+  on.exit({
+    options(timeout = original_timeout)
+    par(original_par)},
+    add = TRUE)
+  options(timeout=9999)
   if (preview == TRUE) {
     url <- result$previewGraphicURL
     if (num == 1) {
@@ -60,13 +67,10 @@ lidar_search <- function(bbox,
   if (isTRUE(folder != "")) {
     title <- result$titles
     download <- result$downloadLazURL
-    original_timeout <- getOption('timeout')
-    options(timeout=9999)
     for (i in 1:num) {
       destination <- paste0(folder, "/", title[i], ".laz")
       try(download.file(download[i], destination))
     }
-    options(timeout=original_timeout)
   }
   return(result)
 }

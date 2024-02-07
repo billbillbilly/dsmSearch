@@ -28,7 +28,7 @@ lidR LAS object.
 }
 \description{
 Search for and download LiDAR data based on coordinates
-of a spatial point with a given distance. The maximum distance is 1000m.
+of a spatial point with a given distance or a bounding box. The maximum distance is 1000m.
 Different dataset could be found and the function automatically downloads
 the latest dataset.
 To get more details of data on a larger scale, please use viewscape::lidar_search.
@@ -45,4 +45,7 @@ terra::plot(lidR::rasterize_canopy(las, 10, lidR::dsmtin()))
 Jean-Romain Roussel and David Auty (2022).
 Airborne LiDAR Data Manipulation and Visualization for
 Forestry Applications. R package version 4.0.1. https://cran.r-project.org/package=lidR
+}
+\seealso{
+\code{\link[=lidar_search]{lidar_search()}}
 }

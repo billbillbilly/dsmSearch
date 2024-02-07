@@ -50,15 +50,16 @@ get_dsm_30 <- function(x, y, r, epsg, bbox,
   }
   # request data
   response <- return_response2(bbox, key)
-  # download data
+  # Store the original 'timeout' option and ensure it's reset upon function exit
   original_timeout <- getOption('timeout')
+  on.exit(options(timeout = original_timeout), add = TRUE)
   options(timeout=9999)
+  # download data
   if (response$status_code == 200) {
     temp_file <- tempfile(fileext = ".tif")
     writeBin(httr2::resp_body_raw(response), temp_file)
-    options(timeout=original_timeout)
     out <- terra::rast(temp_file)
-    unlink(temp_file)
+    on.exit(unlink(temp_file), add = TRUE)
     return(out)
   }
 }

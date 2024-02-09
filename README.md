@@ -20,8 +20,7 @@ The package dsmSearch offers functions for retrieving high-resolution Digital Su
 The dsmSearch R pacakge can currently be installed via github.
 
 ``` r
-library(devtools)
-devtools::install_github("land-info-lab/dsmSearch", dependencies=TRUE)
+install.packages('dsmSearch')
 ```
 
 ## Usage

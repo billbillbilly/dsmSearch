@@ -43,7 +43,7 @@ data <- dsmSearch::get_dsm_30(x = -83.741289,
                               y = 42.270146, 
                               r = 5000, 
                               epsg = 2253,
-                              key = "you key")
+                              key = "your key")
 ```
 
 Baesd on the TNMAccess API, LiDAR search facilitate the retrieval and

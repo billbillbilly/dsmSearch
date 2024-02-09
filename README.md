@@ -2,6 +2,7 @@
 <!-- badges: start -->
 [![DOI](https://zenodo.org/badge/750475119.svg)](https://zenodo.org/doi/10.5281/zenodo.10594151)
 [![R-CMD-check](https://github.com/land-info-lab/dsmSearch/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/land-info-lab/dsmSearch/actions/workflows/R-CMD-check.yaml)
+[![](https://cranlogs.r-pkg.org/badges/dsmSearch)](https://CRAN.R-project.org/package=dsmSearch)
 <!-- badges: end -->
 
 # dsmSearch

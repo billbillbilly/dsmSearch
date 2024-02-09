@@ -9,15 +9,21 @@
 #' @noMd
 pt2bbox <- function(x, y, r, proj, longlat){
   coor <- data.frame(lon=x, lat=y)
-  pt <- sp::SpatialPoints(coor, proj4string=longlat)
-  pt <- sp::spTransform(pt, proj)
+  suppressWarnings(
+    pt <- sp::SpatialPoints(coor, proj4string=longlat)
+  )
+  suppressWarnings(
+    pt <- sp::spTransform(pt, proj)
+  )
   xmin <- pt@coords[1,1] - r
   xmax <- pt@coords[1,1] + r
   ymin <- pt@coords[1,2] - r
   ymax <- pt@coords[1,2] + r
   coor_ <- data.frame(lon=c(xmin, xmax), lat=c(ymin, ymax))
-  pt_ <- sp::SpatialPoints(coor_, proj)
-  pt_ <- sp::spTransform(pt_, CRSobj=longlat)
+  suppressWarnings(pt_ <- sp::SpatialPoints(coor_, proj))
+  suppressWarnings(
+    pt_ <- sp::spTransform(pt_, CRSobj=longlat)
+  )
   return(list(c(pt_@coords[1,1], pt_@coords[1,2], pt_@coords[2,1], pt_@coords[2,2]),
               c(xmin, ymin, xmax, ymax)))
 }
@@ -51,12 +57,12 @@ return_response <- function(bbox, max_return) {
     httr2::req_perform() %>%
     httr2::resp_body_json()
   items <- length(json$items)
-  cat(paste0("Get ", items, " returns", "\n"))
-  cat(paste0("Find available items: ", json$total, "\n"))
-  if (json$total > items) {
-    cat("There are more available items\n")
-    cat("You can set a greater return number to return\n")
-  }
+  # cat(paste0("Get ", items, " returns", "\n"))
+  # cat(paste0("Find available items: ", json$total, "\n"))
+  # if (json$total > items) {
+  #   cat("There are more available items\n")
+  #   cat("You can set a greater return number to return\n")
+  # }
   titles <- c()
   sourceId <- c()
   metaUrl <- c()

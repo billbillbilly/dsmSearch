@@ -4,7 +4,7 @@
 \alias{get_dsm_30}
 \title{get_dsm_30}
 \usage{
-get_dsm_30(x, y, r, epsg, bbox, key = "demoapikeyot2022", folder)
+get_dsm_30(x, y, r, epsg, bbox, key = "")
 }
 \arguments{
 \item{x}{numeric, indicating Longtitude degree of the center point.}
@@ -18,8 +18,6 @@ get_dsm_30(x, y, r, epsg, bbox, key = "demoapikeyot2022", folder)
 \item{bbox}{vector, a bounding box defining the geographical area for downloading data.}
 
 \item{key}{character, API key of OpenTopography.}
-
-\item{folder}{character, indicating a path for downloading the data}
 }
 \value{
 raster
@@ -35,10 +33,12 @@ To request an API key of OpenTopography, online registeration is needed.
 \examples{
 \dontrun{
 data <- dsmSearch::get_dsm_30(bbox = c(-83.783557,42.241833,-83.696525,42.310420),
-                             folder = '/path/to/folder')
-data <- dsmSearch::get_dsm_30(x = -83.741289, y = 42.270146, r = 1000, epsg = 2253,
-                             folder = '/path/to/folder')
+                              key = "API key")
+data <- dsmSearch::get_dsm_30(x = -83.741289,
+                              y = 42.270146,
+                              r = 1000,
+                              epsg = 2253,
+                              key = "API key")
 }
-
 
 }

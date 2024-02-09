@@ -4,7 +4,7 @@
 \alias{get_lidar}
 \title{get_lidar}
 \usage{
-get_lidar(x, y, r, epsg, bbox, max_return = 500, folder, plot = FALSE)
+get_lidar(x, y, r, epsg, bbox, max_return = 500, folder)
 }
 \arguments{
 \item{x}{numeric, indicating Longtitude degree of the center point.}
@@ -21,28 +21,23 @@ If r > 1000m, it will be reset to 1000m.}
 
 \item{max_return}{numeric, indicating the maximum of returns.}
 
-\item{folder}{string, indicating a path for downloading the LiDAR data}
-
-\item{plot}{logical (default is FALSE), enable or disable the plotting of
-the processed LiDAR data.}
+\item{folder}{string (optional), indicating a path for downloading the LiDAR data}
 }
 \value{
 lidR LAS object.
 }
 \description{
 Search for and download LiDAR data based on coordinates
-of a spatial point with a given distance. The maximum distance is 800m.
+of a spatial point with a given distance or a bounding box. The maximum distance is 1000m.
 Different dataset could be found and the function automatically downloads
 the latest dataset.
 To get more details of data on a larger scale, please use viewscape::lidar_search.
 }
 \examples{
 \dontrun{
-#las <- get_lidar(x = -83.741289, y = 42.270146, r = 1000,
-#                 epsg = 2253, path = 'path/to/folder')
-#las <- get_lidar(bbox = c(-83.742282,42.273389,-83.733442,42.278724),
-#                 epsg = 2253, path = 'path/to/folder')
-#terra::plot(lidR::rasterize_canopy(las, 10, dsmtin()))
+las <- dsmSearch::get_lidar(x = -83.741289, y = 42.270146, r = 1000, epsg = 2253)
+las <- dsmSearch::get_lidar(bbox = c(-83.742282,42.273389,-83.733442,42.278724), epsg = 2253)
+terra::plot(lidR::rasterize_canopy(las, 10, lidR::dsmtin()))
 }
 
 }
@@ -50,4 +45,7 @@ To get more details of data on a larger scale, please use viewscape::lidar_searc
 Jean-Romain Roussel and David Auty (2022).
 Airborne LiDAR Data Manipulation and Visualization for
 Forestry Applications. R package version 4.0.1. https://cran.r-project.org/package=lidR
+}
+\seealso{
+\code{\link[=lidar_search]{lidar_search()}}
 }

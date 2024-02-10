@@ -2,6 +2,7 @@
 <!-- badges: start -->
 [![DOI](https://zenodo.org/badge/750475119.svg)](https://zenodo.org/doi/10.5281/zenodo.10594151)
 [![R-CMD-check](https://github.com/land-info-lab/dsmSearch/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/land-info-lab/dsmSearch/actions/workflows/R-CMD-check.yaml)
+[![](https://cranlogs.r-pkg.org/badges/dsmSearch)](https://CRAN.R-project.org/package=dsmSearch)
 <!-- badges: end -->
 
 # dsmSearch
@@ -19,8 +20,7 @@ The package dsmSearch offers functions for retrieving high-resolution Digital Su
 The dsmSearch R pacakge can currently be installed via github.
 
 ``` r
-library(devtools)
-devtools::install_github("land-info-lab/dsmSearch", dependencies=TRUE)
+install.packages('dsmSearch')
 ```
 
 ## Usage
@@ -43,7 +43,7 @@ data <- dsmSearch::get_dsm_30(x = -83.741289,
                               y = 42.270146, 
                               r = 5000, 
                               epsg = 2253,
-                              key = "you key")
+                              key = "your key")
 ```
 
 Baesd on the TNMAccess API, LiDAR search facilitate the retrieval and

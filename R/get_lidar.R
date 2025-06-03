@@ -22,10 +22,16 @@
 #' Forestry Applications. R package version 4.0.1. https://cran.r-project.org/package=lidR
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' las <- dsmSearch::get_lidar(x = -83.741289, y = 42.270146, r = 1000, epsg = 2253)
 #' las <- dsmSearch::get_lidar(bbox = c(-83.742282,42.273389,-83.733442,42.278724), epsg = 2253)
-#' terra::plot(lidR::rasterize_canopy(las, 10, lidR::dsmtin()))
+#'
+#' if (inherits(las, "LAS")) {
+#'   can <- lidR::rasterize_canopy(las, 10, lidR::dsmtin())
+#'   terra::plot(can)
+#' } else {
+#'   message("No LAS object returned. Skipping rasterization.")
+#' }
 #' }
 #'
 #' @seealso [lidar_search()]
@@ -46,7 +52,7 @@ get_lidar <- function(x,
                       r,
                       epsg,
                       bbox,
-                      max_return=500,
+                      max_return=1000,
                       folder) {
   if (missing(epsg)) {
     stop("epsg is missing. Please set epsg code")
@@ -73,8 +79,17 @@ get_lidar <- function(x,
   original_timeout <- getOption('timeout')
   on.exit(options(timeout = original_timeout), add = TRUE)
   options(timeout=9999)
+  result <- 0
   # get response using API
-  result <- return_response(bbox[[1]], max_return)
+  tryCatch(
+    result <- return_response(bbox[[1]], max_return),
+    error = function(e) {
+      return(e)
+    }
+  )
+  if(is.numeric(result)){
+    return('API error. Please try again later.')
+  }
   # filter overlapping files
   lastYear <- max(result$startYear)
   result <- result[which(result$startYear == lastYear),]
@@ -83,22 +98,26 @@ get_lidar <- function(x,
   download <- result$downloadLazURL
   # download data
   files <- c()
-  if (isTRUE(Sys.info()[1]=="Windows") == FALSE){
-    m <- "curl"
-  }else if (isTRUE(Sys.info()[1]=="Windows") == TRUE){
-    m <- "wininet"
-  }
+  destination <- ""
+  # if (isTRUE(Sys.info()[1]=="Windows") == FALSE){
+  #   m <- "curl"
+  # }else if (isTRUE(Sys.info()[1]=="Windows") == TRUE){
+  #   m <- "auto"
+  # }
   for (i in 1:num) {
     if (missing(folder)) {
       destination <- tempfile(fileext = ".laz")
     } else {
       destination <- paste0(folder, "/", title[i], ".laz")
     }
-    try(download.file(download[i],
-                      destination,
-                      method = m,
-                      quiet = TRUE))
-    files <- c(files, destination)
+    isDone <- retry_download(download[i], destination)
+    # try(download.file(download[i],
+    #                   destination,
+    #                   method = m,
+    #                   quiet = TRUE))
+    if (isDone == 1) {
+      files <- c(files, destination)
+    }
   }
   options(timeout=original_timeout)
   # clip and merge

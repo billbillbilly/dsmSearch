@@ -4,7 +4,7 @@
 \alias{get_dsm_30}
 \title{get_dsm_30}
 \usage{
-get_dsm_30(x, y, r, epsg, bbox, key = "")
+get_dsm_30(x, y, r, epsg, bbox, datatype = "AW3D30", key = "")
 }
 \arguments{
 \item{x}{numeric, indicating Longtitude degree of the center point.}
@@ -17,18 +17,23 @@ get_dsm_30(x, y, r, epsg, bbox, key = "")
 
 \item{bbox}{vector, a bounding box defining the geographical area for downloading data.}
 
+\item{datatype}{character, dataset names including "AW3D30", "SRTMGL1", "USGS1m", "USGS10m".}
+
 \item{key}{character, API key of OpenTopography.}
 }
 \value{
 raster
 }
 \description{
-Search for and download ALOS Global Digital Surface Model (AW3D30)
-via OpenTopography API 1.0.0 based on coordinates of a spatial point with
-a given distance or bounding box. The raster resolution is 30 meter.
+Search for and download ALOS Global Digital Surface Model (AW3D30) and
+USGS DEM raster datasets via OpenTopography API 1.0.0 based on coordinates of a spatial
+point with a given distance or bounding box. The resolution of AW3D30 (ALOS World 3D 30m)
+and SRTMGL1 (SRTM GL1 30m) raster is 30 meter.
+The raster resolutions of USGS datasets are 10m and 1m.
 }
 \details{
-To request an API key of OpenTopography, online registeration is needed.
+To request an API key of OpenTopography,
+online registeration is needed: https://portal.opentopography.org/login?redirect=\%2FrequestService\%3Fservice\%3Dapi.
 }
 \examples{
 \dontrun{

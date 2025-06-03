@@ -4,6 +4,9 @@ testthat::test_that("runs correctly", {
                               y = 42.270146,
                               r = 1000,
                               epsg = 2253)
-
-  testthat::expect_type(las, "S4")
+  if (is.character(las)) {
+    testthat::expect_type(las, "character")
+  } else {
+    testthat::expect_type(las, "S4")
+  }
 })

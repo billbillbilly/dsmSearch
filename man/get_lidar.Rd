@@ -4,7 +4,7 @@
 \alias{get_lidar}
 \title{get_lidar}
 \usage{
-get_lidar(x, y, r, epsg, bbox, max_return = 500, folder)
+get_lidar(x, y, r, epsg, bbox, max_return = 1000, folder)
 }
 \arguments{
 \item{x}{numeric, indicating Longtitude degree of the center point.}
@@ -34,10 +34,16 @@ the latest dataset.
 To get more details of data on a larger scale, please use viewscape::lidar_search.
 }
 \examples{
-\dontrun{
+\donttest{
 las <- dsmSearch::get_lidar(x = -83.741289, y = 42.270146, r = 1000, epsg = 2253)
 las <- dsmSearch::get_lidar(bbox = c(-83.742282,42.273389,-83.733442,42.278724), epsg = 2253)
-terra::plot(lidR::rasterize_canopy(las, 10, lidR::dsmtin()))
+
+if (inherits(las, "LAS")) {
+  can <- lidR::rasterize_canopy(las, 10, lidR::dsmtin())
+  terra::plot(can)
+} else {
+  message("No LAS object returned. Skipping rasterization.")
+}
 }
 
 }

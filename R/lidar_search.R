@@ -40,7 +40,12 @@ lidar_search <- function(bbox,
   if (missing(bbox)) {
     stop("Please define a bbox")
   }
-  result <- return_response(bbox, max_return)
+  tryCatch(
+    result <- return_response(bbox, max_return),
+    error = function(e) {
+      return(e)
+    }
+  )
   num <- length(result[,1])
   original_timeout <- getOption('timeout')
   original_par <- par(no.readonly = TRUE)

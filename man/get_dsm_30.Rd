@@ -7,33 +7,39 @@
 get_dsm_30(x, y, r, epsg, bbox, datatype = "AW3D30", key = "")
 }
 \arguments{
-\item{x}{numeric, indicating Longtitude degree of the center point.}
+\item{x}{numeric, indicating Longtitude degree of the center point. (bbox is specified, this argument is ignored)}
 
-\item{y}{numeric, indicating latitude degree of the center point.}
+\item{y}{numeric, indicating latitude degree of the center point. (bbox is specified, this argument is ignored)}
 
-\item{r}{numeric, indicating search distance (meter or feet) for LiDAR data.}
+\item{r}{numeric, indicating search distance (meter or feet) for LiDAR data. (bbox is specified, this argument is ignored)}
 
-\item{epsg}{numeric, the EPSG code specifying the coordinate reference system.}
+\item{epsg}{numeric, the EPSG code specifying the coordinate reference system. (bbox is specified, this argument is ignored)}
 
 \item{bbox}{vector, a bounding box defining the geographical area for downloading data.}
 
-\item{datatype}{character, dataset names including "AW3D30", "SRTMGL1", "USGS1m", "USGS10m".}
+\item{datatype}{character, dataset names including "AW3D30", "SRTMGL1", "USGS1m", "USGS10m", "metaCHM", and "ethCHM".}
 
-\item{key}{character, API key of OpenTopography.}
+\item{key}{character, API key of OpenTopography. (not required for "metaCHM", and "ethCHM")}
 }
 \value{
-raster
+SpatRaster raster
 }
 \description{
-Search for and download ALOS Global Digital Surface Model (AW3D30) and
-USGS DEM raster datasets via OpenTopography API 1.0.0 based on coordinates of a spatial
-point with a given distance or bounding box. The resolution of AW3D30 (ALOS World 3D 30m)
+Search for and download Digital Surface Model
+based on coordinates of a spatial point with a given distance or bounding box.
+The resolution of AW3D30 (ALOS World 3D 30m)
 and SRTMGL1 (SRTM GL1 30m) raster is 30 meter.
 The raster resolutions of USGS datasets are 10m and 1m.
+Forest canopy height maps (CHM) include the ETH Global Sentinel-2 10m Canopy Height (2020) and
+the Meta High Resolution 1m Global Canopy Height Map
 }
 \details{
 To request an API key of OpenTopography,
-online registeration is needed: https://portal.opentopography.org/login?redirect=\%2FrequestService\%3Fservice\%3Dapi.
+\href{https://portal.opentopography.org/login?redirect=\%2FrequestService\%3Fservice\%3Dapi}{online registeration} is needed.
+
+To get CHMs with more customized arguments please use \code{fd_canopy_height} from the \code{forestdata} package.
+
+Data may be freely used for academic purposes, but be cited appropriately (see references below).
 }
 \examples{
 \dontrun{
@@ -46,4 +52,27 @@ data <- dsmSearch::get_dsm_30(x = -83.741289,
                               key = "API key")
 }
 
+}
+\references{
+Japan Aerospace Exploration Agency (2021). ALOS World 3D 30 meter DEM. V3.2, Jan 2021.
+Distributed by OpenTopography.
+https://doi.org/10.5069/G94M92HB. Accessed: 2025-06-04
+
+United States Geological Survey (2021). United States Geological Survey 3D Elevation Program 1 meter Digital Elevation Model.
+Distributed by OpenTopography. https://doi.org/10.5069/G9NP22NT. Accessed: 2025-06-04
+
+United States Geological Survey (2021). United States Geological Survey 3D
+Elevation Program 1/3 arc-second Digital Elevation Model.
+Distributed by OpenTopography. https://doi.org/10.5069/G98K778D. Accessed: 2025-06-04
+
+United States Geological Survey (2021). United States Geological Survey 3D Elevation Program 1 arc-second Digital Elevation Model.
+Distributed by OpenTopography. https://doi.org/10.5069/G9HX19WN. Accessed: 2025-06-04
+
+Lang, Nico, Walter Jetz, Konrad Schindler, and Jan Dirk Wegner.
+"A high-resolution canopy height model of the Earth." arXiv preprint arXiv:2204.08322 (2022).
+
+Tolan, J., Yang, H.I., Nosarzewski, B., Couairon, G., Vo, H.V., Brandt, J., Spore, J., Majumdar, S.
+, Haziza, D., Vamaraju, J. and Moutakanni, T., 2024. Very high resolution canopy height maps from
+RGB imagery using self-supervised vision transformer and convolutional decoder trained on aerial lidar.
+Remote Sensing of Environment, 300, p.113888.
 }

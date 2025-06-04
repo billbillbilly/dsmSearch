@@ -30,4 +30,6 @@ Imports:
     terra,
     lidR,
     httr2,
+    forestdata,
+    nominatimlite,
     imager

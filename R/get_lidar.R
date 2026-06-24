@@ -37,10 +37,6 @@
 #' @seealso [lidar_search()]
 #'
 #' @importFrom dplyr "%>%"
-#' @importFrom lidR readLAScatalog
-#' @importFrom lidR clip_rectangle
-#' @importFrom lidR writeLAS
-#' @importFrom lidR plot
 #' @importFrom sp SpatialPoints
 #' @importFrom sp CRS
 #' @importFrom sp spTransform
@@ -54,6 +50,11 @@ get_lidar <- function(x,
                       bbox,
                       max_return=1000,
                       folder) {
+  if (!requireNamespace("lidR", quietly = TRUE)) {
+    stop("Package 'lidR' is needed for get_lidar(). ",
+         "Install it with: install.packages('lidR', repos = 'https://r-lidar.r-universe.dev')",
+         call. = FALSE)
+  }
   if (missing(epsg)) {
     stop("epsg is missing. Please set epsg code")
   }

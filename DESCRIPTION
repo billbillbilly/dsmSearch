@@ -1,12 +1,12 @@
 Package: dsmSearch
 Type: Package
-Title: DSM and LiDAR downloader
-Version: 1.2.1
+Title: DSM and LiDAR Downloader
+Version: 1.2.4
 Authors@R: c(person("Xiaohao", "Yang", role = c("aut", "cre", "cph"), email = "xiaohaoy@umich.edu"),
            person("Nathan", "Fox", role = c("aut")),
            person("Derek", "Van Berkel", role = c("aut")),
            person("Mark", "Lindquist", role = c("aut")))
-Description: A collection of functions to search and donwload 
+Description: A collection of functions to search and download
     DSM (Digital Surface Model) and LiDAR (Light Detection and Ranging) data via APIs, 
     including 'OpenTopography' <https://portal.opentopography.org/apidocs/> and 
     'TNMAccess' <https://apps.nationalmap.gov/tnmaccess/#/>.
@@ -20,16 +20,17 @@ LazyData: true
 Suggests:
     testthat (>= 3.0.0),
     knitr,
-    rmarkdown
+    rmarkdown,
+    aws.s3,
+    lidR
+Additional_repositories: https://r-lidar.r-universe.dev
 VignetteBuilder: knitr,
                  rmarkdown
-Imports: 
+Imports:
     dplyr,
     sf,
     sp,
     terra,
-    lidR,
     httr2,
-    forestdata,
     nominatimlite,
     imager

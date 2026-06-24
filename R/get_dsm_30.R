@@ -20,7 +20,7 @@
 #' @details To request an API key of OpenTopography,
 #' [online registeration](https://portal.opentopography.org/login?redirect=%2FrequestService%3Fservice%3Dapi) is needed.
 #'
-#' To get CHMs with more customized arguments please use `fd_canopy_height` from the `forestdata` package.
+#' To get CHMs with more customized arguments please refer to the ETH and Meta dataset documentation directly.
 #'
 #' Data may be freely used for academic purposes, but be cited appropriately (see references below).
 #'
@@ -63,7 +63,6 @@
 #' @importFrom terra ext
 #' @importFrom terra crs
 #' @importFrom nominatimlite bbox_to_poly
-#' @importFrom forestdata fd_canopy_height
 #' @importFrom httr2 resp_body_raw
 #'
 #' @export
@@ -109,9 +108,9 @@ get_dsm_30 <- function(x, y, r, epsg, bbox,
   } else if (datatype == 'metaCHM' || datatype == 'ethCHM') {
     model_ <- gsub('CHM', '', datatype)
     mask_ <- nominatimlite::bbox_to_poly(bbox=bbox)
-    canopy <- forestdata::fd_canopy_height(x = mask_, model = model_,
-                                 layer = "chm", crop = TRUE,
-                                 merge = TRUE)
+    canopy <- .fd_canopy_height(x = mask_, model = model_,
+                                layer = "chm", crop = TRUE,
+                                merge = TRUE)
     return(canopy)
   }
 }
